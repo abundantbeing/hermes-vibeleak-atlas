@@ -1,0 +1,4 @@
+* text=auto eol=lf
+assets/*.mmdb binary
+vendor/** -text
+desktop/plugin.js -text -whitespace
