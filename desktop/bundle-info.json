@@ -1,0 +1,9 @@
+{
+  "entry": "plugin.js",
+  "bytes": 611928,
+  "imports": [
+    "react",
+    "@hermes/plugin-sdk",
+    "react/jsx-runtime"
+  ]
+}
