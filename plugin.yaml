@@ -1,0 +1,12 @@
+name: vibeleak-atlas
+version: "0.1.0"
+description: "Website security observations, a dithered globe, ASCII map, and private VibeLeak scan workflows."
+author: VibeLeak
+license: MIT
+homepage: https://github.com/abundantbeing/hermes-vibeleak-atlas
+manifest_version: 1
+kind: standalone
+requires_hermes: ">=0.22.4"
+provides_tools: []
+provides_hooks: []
+requires_env: []
