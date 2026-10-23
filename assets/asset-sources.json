@@ -1,0 +1,26 @@
+[
+  {
+    "url": "https://files.pythonhosted.org/packages/b9/34/0923a42cce579398890058775ea145214acf80dd3340c26cfb0f16989300/maxminddb-3.2.0.tar.gz",
+    "path": "vendor-source-cache/maxminddb-3.2.0.tar.gz",
+    "bytes": 531318,
+    "sha256": "d28e0073fd1dd637c8b95947bc864b5625eca9f8f2db1538145e33b2a1cd4b92"
+  },
+  {
+    "url": "https://download.db-ip.com/free/dbip-country-lite-2026-10.mmdb.gz",
+    "path": "vendor-source-cache/dbip-country-lite-2026-10.mmdb.gz",
+    "bytes": 4123384,
+    "sha256": "4cd44536ddfd40fec7eca94a233f7d19f38d470e6522e653cb8d27001f5fe177"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_land.geojson",
+    "path": "vendor-source-cache/land.geojson",
+    "bytes": 138160,
+    "sha256": "9e0729ee253ca7d7a5c4ae9395fb1902264c5377c52e224d13dd85010e2835d9"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson",
+    "path": "vendor-source-cache/countries.geojson",
+    "bytes": 838726,
+    "sha256": "6866c877d39cba9c357620878839b336d569f8c662d3cfab4cb1dbe2d39c977f"
+  }
+]
