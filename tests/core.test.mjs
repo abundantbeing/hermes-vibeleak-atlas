@@ -1,0 +1,16 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+let core=null;
+try{core=await import('../desktop-src/core.mjs')}catch{}
+const required=()=>assert.ok(core,'Atlas frontend policies have not been implemented');
+
+test('grade filters and search use one eligible dataset',()=>{required();const rows=[{domain:'one.com',grade:'A',geo:{status:'mapped',country:'US'}},{domain:'two.com',grade:'F',geo:{status:'unknown'}}];assert.deepEqual(core.filterSites(rows,{query:'two',grade:'F'}).map(x=>x.domain),['two.com']);assert.equal(core.filterSites(rows,{location:'unknown'}).length,1)});
+test('country clusters report counts and worst observed grade without inventing national risk',()=>{required();const rows=[{domain:'one.com',grade:'A',geo:{status:'mapped',country:'US',lat:38,lon:-97,name:'United States'}},{domain:'two.com',grade:'F',geo:{status:'mapped',country:'US',lat:38,lon:-97,name:'United States'}},{domain:'unknown.com',grade:'D',geo:{status:'unknown'}}];const clusters=core.groupCountries(rows);assert.equal(clusters.length,1);assert.equal(clusters[0].count,2);assert.equal(clusters[0].grade,'F')});
+test('Bayer matrix has all sixteen unique ordered thresholds',()=>{required();assert.equal(new Set(core.BAYER4).size,16);assert.deepEqual([...core.BAYER4].sort((a,b)=>a-b),Array.from({length:16},(_,i)=>i))});
+test('command parser accepts only declared local verbs',()=>{required();assert.deepEqual(core.parseCommand('watch example.com'),{type:'watch',domain:'example.com'});assert.deepEqual(core.parseCommand('view ascii'),{type:'view',view:'ascii'});for(const s of ['rm -rf /','watch a.com; curl bad','javascript:alert(1)','view eval','watch'])assert.equal(core.parseCommand(s).type,'error')});
+test('backend/profile activation changes query identity',()=>{required();assert.notEqual(core.scopeKey('profile-a',3),core.scopeKey('profile-b',3));assert.notEqual(core.scopeKey('profile-a',3),core.scopeKey('profile-a',4))});
+test('local history never says a finding was fixed because a score rose',()=>{required();const h=[{id:'1',sites:[{domain:'one.com',grade:'B',score:82}]},{id:'2',sites:[{domain:'one.com',grade:'A',score:94}]}];const changes=core.historyChanges(h);assert.equal(changes.length,1);assert.equal(changes[0].kind,'grade-changed');assert.ok(!JSON.stringify(changes).includes('fixed'))});
+test('ASCII overlay uses actual country coordinates and omits unknown locations',()=>{required();const world=Array.from({length:29},()=>''.padEnd(80,' '));const result=core.asciiMap(world,[{grade:'F',geo:{status:'mapped',lat:0,lon:0}},{grade:'S',geo:{status:'unknown'}}]);assert.ok(result.includes('F'));assert.ok(!result.includes('S'))});
+test('projected labels avoid overlap, prefer selection, and stay inside the map',()=>{required();assert.equal(typeof core.layoutLabels,'function');const points=[{id:'A',x:100,y:100,width:50,height:18,priority:1},{id:'B',x:110,y:105,width:50,height:18,priority:2,selected:true},{id:'C',x:3,y:2,width:50,height:18},{id:'D',x:230,y:160,width:50,height:18}];const placed=core.layoutLabels(points,300,220);assert.deepEqual(placed.map(p=>p.id),['B','D']);});
+
+test('unknown trust scores are never inferred from grade',()=>{required();assert.equal(core.formatScore({grade:'S',score:null}),'not provided');assert.equal(core.formatScore({grade:'A',score:94}),'94/100')});
