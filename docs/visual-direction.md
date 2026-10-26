@@ -1,18 +1,9 @@
 # Visual direction
 
+The workbench uses Hermes's native theme and controls. A restrained monospace identity, boxed metadata and thin rules keep the evidence readable without imitating a network attack feed.
 
-Selected references:
+The main split is local scan records beside private evidence. The target form precedes results. Authorization and the one-unit ceiling belong in a native dialog, not a subtle icon. Severity and grades supplement labels; unknown scores remain unassessed.
 
-- Engine/theming principles, https://dithercn.dev/docs
+On a narrow pane the target form and local-record sidebar stack in normal flow. Long domains, project hints and report text wrap or truncate without widening the pane. The primary actions remain native buttons. No animation or dither filter is applied over evidence text.
 
-Use their relevant principles rather than the whole catalog: a shared ordered Bayer cell grid, restrained two-tone globe shading, crisp density/hatched grade graphics, and selectable real ASCII characters. Keep labels and evidence as real accessible HTML. Use Hermes theme tokens instead of a hardcoded dark palette. Hide/unmount must stop work; reduced motion must preserve all information.
-
-Implementation direction:
-
-- A custom compact Three.js globe with geographic land dots, ordered-dither spherical shading, country clusters, and country/site selection.
-- A real ASCII world projection generated from Natural Earth geography. Grade glyphs and a nearby textual list make it functional without WebGL.
-- A terminal command strip with only declared local commands. It never evaluates shell or JavaScript.
-- Registration marks, boxed source labels, thin rule grid, readable monospace headings, and dither density bars. No decorative fake detections, random counters, or a scanline filter over text.
-- Theme-aware native controls. Restrained semantic grade colors, explicitly labeled public/private contexts, and visible DB-IP attribution.
-
-Do not import Pixi, a second postprocessing engine, or a gallery of GPU effects. The library survey informs a deliberate interface, not a dependency collection. This project uses Three.js under its MIT license. No source code from the reference catalog or proprietary design assets is copied.
+QA fixtures have a visible provenance warning. There are no decorative detections, fabricated traffic, national risk scores, third-party grades or scan-age counters. Keep the dithered globe, real ASCII and list identity. Their data is limited to the user's locally initiated assessments. The empty globe is real base geography with no invented markers. Explicit hosting lookup, country uncertainty and evidence selection explain its purpose without turning it into a worldwide attack feed.
