@@ -1,24 +1,37 @@
 # Verification
 
-Tested against an isolated native Hermes Desktop build and a separate real Hermes Python backend. No production credentials, sessions or config were copied into QA. The plugin did not run a scan, make a paid data-feed request, submit an agent turn, deploy production code or restart the running gateway.
+## Reproducible checks
 
-## Executed checks
+```sh
+python -m unittest discover -s tests -q
+npm test
+npm run build
+python scripts/package_plugin.py
+```
 
-- `python -m unittest discover -s tests -q`: 35 passing tests.
-- `npm test`: 9 passing pure frontend policy tests.
-- `npm run build`: bundled ESM. Only Hermes SDK, React and React JSX-runtime remain external.
-- `node scripts/qa-ui.mjs`: 19 passing native integration checks, zero renderer exceptions and zero console warnings in the completed run.
+Backend regressions cover explicit dual approval, durable installation-bound receipts, credential/profile isolation, missing provenance, exact target/ID validation, uncertain responses, idempotent recovery, local baselines, honest comparison and PHP evidence. API tests exercise framework admission, no-store responses, bounded payloads and blocked legacy reads. Pure frontend tests exercise approval policy, handoff identity and cross-owner draft refusal.
 
-Native checks used live saved public VibeLeak results and opt-in Cloudflare DNS plus offline DB-IP lookup. They exercised source consent, real country clusters, inspection, pause, dither bypass, ASCII/list switching, missing private credentials, reduced motion, a narrow pane with no horizontal overflow, public Markdown preview, non-overlapping labels, empty/recovered search, command-driven watch/unwatch, local read replay, three route-away/remount cycles and a native theme change.
+## Actual native QA
 
-Screenshots were captured from the real native plugin, not an iframe or an HTML imitation of Hermes. The completed vision review passed wide, narrow and light-theme renders. A separate earlier review identified overlapping labels and cramped narrow-pane metadata. The renderer now suppresses colliding/out-of-bounds labels, enlarges metadata and hit targets, and reduces globe height in a narrow pane. Browser-rendered CSS colors are sampled before conversion to Three.js colors so modern `color-mix()` theme values do not produce warnings.
+`prepare_workbench_qa.py` prepares a separate Hermes home without production credentials. Its QA-only transport fixture is appended only to the disposable backend entry and is excluded from the package. `serve_qa.py` and `launch_qa.mjs` run the actual Hermes backend and Desktop, with a separate user-data directory and no inference provider.
 
-## Private integration limits
+After connecting the isolated app, `node scripts/qa-workbench.mjs` exercises the native protocol, truthful fixture label, no upstream read on open/prepare, both approval checks, local receipt, private evidence, unsent fix-plan preview, owner PHP evidence, fresh rescan approvals, comparison, narrow layout and read-consent withdrawal. It also checks real WebGL painting, dither bypass, pause, ASCII/list switching, disposal of inactive canvases and a separately confirmed owner-only hosting lookup with no live DNS in QA. Its request ledger asserts only the explicitly approved fixture POSTs and recorded own-result GETs, never public/account-wide endpoints.
 
-No production owner credential was supplied to this plugin. Private happy paths and denied scopes use explicitly labeled HTTP transport fixtures. A missing key was exercised in the native UI, and the real public endpoint contracts were read from the VibeLeak source/live service. This is not a claim of a completed live owner-authenticated acceptance test.
+Screenshots come from the actual disk-loaded plugin. Capture waits for finite dialog animations and painted frames; blank captures are failures, not visual passes. Review wide, narrow, approval and comparison images separately. Native DOM checks, rendered pixels and user approval remain separate claims.
 
-## Packaging and installation
+## Installation and acceptance gates
 
-The ZIP packager uses an explicit allowlist, verifies archive integrity and byte equality, and excludes environment files, SQLite data, QA homes, credentials, source-cache downloads and development dependencies. The package manifest records the actual SHA-256 and file count.
+The ZIP uses explicit allowlists and excludes QA files, environment files, local databases, source caches, Git metadata and development dependencies. Integrity and byte equality are checked. Exercise the extracted installer through real Hermes enable APIs in a disposable home: fresh install, backed-up upgrade, preserved profile state, matching renderer and activation rollback. Windows in-use directory upgrades also preserve identical locked assets, back up both halves, atomically update changed files and roll them back on failure. Staging stays outside plugin-discovery roots, and activation must resolve the canonical plugin key.
 
-The local installer copies an allowlisted package and uses Hermes's plugin enable API. It backs up profile config and never restarts a gateway. Installation was read back after the supported enable step completed. The backend is enabled, not disabled, the native renderer matches the built entry byte for byte, and Hermes discovers the plugin. Activation reported `gateway_reloaded: true` and `restart_required: false`; the original gateway process remained alive. No gateway restart was performed.
+The user install must be backed up before upgrade. A matching file hash is disk alignment, not proof of the serving Python version. Verify the actual workbench protocol on the current connection. Never restart the gateway implicitly.
+
+Fixture security results are not live owner acceptance. That final gate requires an actual owner key, accepted scopes/entitlement and explicit authorization of a real target and its unit budget. No production scan, payment, model turn, deployment or release is part of fixture QA.
+
+
+## Local inspection and layout regressions
+
+`npm test` also covers local explicit approval, native-read-only access, path bounds, protected files, size/read budgets, cancellation, redaction, separate PHP runtime evidence, exclusion accounting and native repository-picker outcomes. Picker selection alone must not invoke list, stat, read or write operations.
+
+For reproducible component layout QA, `node scripts/prepare_feedback_qa.mjs` installs an automated test-only route in the disposable Desktop home. `node scripts/qa-feedback.mjs` mounts the actual production local-inspection and repository-context components with controlled I/O, then checks approval, picker result handling, coverage explanations, and draft text/control bounds at wide and narrow widths. This does not exercise the OS permission dialog, a client project, or a live security assessment. Do not use these captures as real inspection evidence or product walkthrough footage.
+
+The QA route waits for an exact build identifier to avoid testing a stale hot-reload generation. On a minimized isolated Electron window, CDP focus emulation can keep visibility-gated plugin discovery active without taking desktop focus. This does not grant folder permissions. Dialog tests check the native body box and portaled text independently; styles scoped only under the page cannot cover a portaled dialog.
