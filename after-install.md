@@ -1,11 +1,16 @@
 # After installation
 
-Open VibeLeak Atlas in the Hermes Desktop sidebar, or use the command palette's Open VibeLeak Atlas action.
+Open **VibeLeak Atlas** in the Hermes Desktop sidebar or command palette.
 
-- Enable the read-only source before fetching public saved results.
-- Hosting geography is optional. It sends public domain names to Cloudflare DNS-over-HTTPS and looks up approximate countries in offline DB-IP Country Lite data.
-- Private fleet needs the current backend profile's `VIBELEAK_ATLAS_API_KEY`. Keep this secret outside the renderer.
-- This plugin never runs scans or applies fixes. Agent handoffs are previewed and appended as unsent drafts only at your request.
-- If the renderer has not appeared, run Reload desktop plugins from the palette. A Python activation that reports a required restart is not permission to restart the running gateway.
+1. Create an owner API key with `scan:write`, `scan:read` and `findings:read`.
+2. From the extracted package, run `python scripts/configure_owner.py` using Hermes's Python environment. The hidden prompt saves `VIBELEAK_ATLAS_API_KEY` through Hermes secrets. Do not paste it into chat or the renderer.
+3. Refresh the connection, enter a website you own or are authorized to assess, and choose **Review assessment**. Preparing the dialog makes no upstream request.
+4. Check the exact target, then explicitly approve website authorization and the ceiling of one VibeLeak scan unit. Only **Run approved assessment** starts the request.
+5. Inspect the evidence and preview a fix-plan draft. Appending it does not submit it or change code. Confirm the intended repository and approve any subsequent changes in chat.
+6. After an approved change and deployment, **Review rescan** requests a new confirmation. A comparison reports observations, not independently verified fixes.
 
-Read README.md and docs/privacy.md before connecting an owner key.
+Public and account-wide results are never imported. Pausing result reads hides private evidence. If a request is uncertain, reuse **Review same approval** rather than starting a separate replacement scan.
+
+If the renderer is missing, use **Reload desktop plugins**. If the workbench backend is not active, the page fails closed; copied files alone do not prove Python activation. Do not restart the gateway without deliberately saving work and arranging it.
+
+Read [privacy](docs/privacy.md) before connecting an owner key. Live owner acceptance requires a real credential and an explicitly authorized target; QA fixtures are not real security results.
