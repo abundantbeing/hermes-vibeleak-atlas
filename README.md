@@ -1,99 +1,235 @@
+<p align="center">
+  <img src="./.github/assets/readme/vibeleak-symbol.png" alt="VibeLeak" width="120" />
+</p>
+
 # VibeLeak Atlas
 
-A native Hermes Desktop plugin for saved website-security observations.
+**Review your own website and local code inside Hermes Desktop.**
 
-Explore a dithered hosting-country globe, switch to an ASCII map or a list, inspect saved trust grades, keep a local watchlist, and preview a Markdown handoff for your agent.
+VibeLeak Atlas brings authorized website assessments and read-only local code inspection into a native Hermes workspace. Review evidence, prepare an unsent fix-plan draft, and check the result of changes you approve separately.
 
-Atlas reads VibeLeak's existing data. Opening a site never starts a scan. The map shows approximate hosting geography, not attacks, visitors, or a verified origin.
+[VibeLeak](https://vibeleak.app) · [Walkthrough](#see-it-in-use) · [Installation](#installation) · [Privacy](#privacy-and-data-handling) · [Support](#support)
 
-## What works
+> **Preview 0.2.0.** Not yet listed in the Hermes plugin catalog. Website assessments require a scoped VibeLeak owner API key. Local folder inspection does not require a VibeLeak account.
 
-- Public index of recently published VibeLeak results.
-- Local watchlist of up to 32 public website hostnames.
-- Selectable globe, drag/zoom, pause, ordered-dither bypass, and country clusters.
-- Geographic ASCII projection and accessible website table when WebGL is unavailable.
-- Domain, grade, country, and unlocated filters. Trust and available AI-readiness observations stay separate.
-- Site inspector with scan time, source, precision, and explicit unknown/multi-region geography.
-- Up to 64 changed local public reads, with a replay selector and recorded grade changes.
-- Private saved-scan history and Score Watch events with an owner read key.
-- User-requested owner report export or public-observation handoff. Preview and copy it, or append it to a compatible chat draft without submitting.
-- Native theme tokens, reduced-motion still frame, visibility-aware polling, and disposed GPU resources when you leave the page.
+## See it in use
 
-This is a desktop viewer, not a new worldwide publication backend. The public index is a recent sample. Private history shows the latest 100 saved scans before domain deduplication. A grade change does not prove a finding was fixed.
+[![Animated preview of VibeLeak Atlas, including the assessment map and local code review](./.github/assets/readme/walkthrough.gif)](./.github/assets/readme/vibeleak-atlas-demo.mp4)
 
-## Install
+**[Watch or download the full narrated walkthrough](./.github/assets/readme/vibeleak-atlas-demo.mp4)** · 93 seconds · 720p · voiceover, captions, music and sound effects
 
-Requires Hermes Agent/Desktop 0.22.4 or later with the native plugin SDK and Python plugin backend support.
+The animation is a short, silent preview. The full video includes both workflows. All captures show the actual native plugin. Website responses are labelled samples, and local inspection uses a disposable PHP example. These are not live production findings or client projects. See the [media credits](./.github/assets/readme/CREDITS.md).
 
-From the extracted release package or the source checkout, use Hermes's Python environment:
+## What you can do
+
+| Workflow | What Atlas does | What stays under your control |
+| --- | --- | --- |
+| Website assessment | Requests an authorized assessment through VibeLeak, opens its private findings, and compares an approved rescan with its baseline. | The exact target, website authorization, a ceiling of one scan unit per request, and every rescan. |
+| Local folder inspection | Reads permitted source and configuration files through native folder grants, then reports bounded static review candidates. | Folder access, explicit inspection approval, the fix-plan draft, and any later changes. |
+
+Both workflows can prepare a reviewed draft for a compatible Hermes chat. **Atlas does not send that draft, call a model, edit your project, or deploy a fix.**
+
+### Website assessments
+
+- Review private evidence tied to assessments explicitly initiated by your installation. Atlas does not import a public index or account-wide scan history.
+- Attach repository context with **Choose folder**, **Use current**, or a manual hint. Choosing a folder here does not inspect or upload its source.
+- Prioritize findings and prepare a repository-aware fix-plan draft.
+- Request a rescan after an approved change and deployment. Comparison reports observations, not independently verified fixes.
+- Explore your assessments in the dithered globe, real ASCII map, or list view. Pause animation, disable dithering, or use reduced motion.
+- Enable approximate hosting-country lookup separately. Unknown locations remain unknown. CDN locations are not verified server origins.
+
+### Local folder inspection
+
+- Choose a local folder, then separately approve read-only inspection.
+- Review selected PHP input-handling and configuration patterns, possible hardcoded secrets in readable source, and environment-file ignore-policy hints.
+- See detected React, Next.js and PHP requirement metadata where present. Metadata is not a dependency vulnerability audit or proof of the deployed runtime.
+- Understand coverage through exclusion reasons, file and directory counts, native read refusals, and inspection limits.
+- Preview a redacted fix plan without raw source excerpts. Reinspect after separately approved changes, then release access.
+
+## Screenshots
+
+| Assessment map | Website evidence |
+| --- | --- |
+| [![Dithered globe showing example website assessments](./.github/assets/readme/assessment-map.png)](./.github/assets/readme/assessment-map.png) | [![Private evidence and fix-plan controls using sample results](./.github/assets/readme/website-evidence.png)](./.github/assets/readme/website-evidence.png) |
+
+| Local review candidates | Unsent fix-plan review |
+| --- | --- |
+| [![Bounded PHP review of the disposable example project](./.github/assets/readme/local-review.png)](./.github/assets/readme/local-review.png) | [![Redacted fix-plan draft with copy and append actions](./.github/assets/readme/fix-plan-draft.png)](./.github/assets/readme/fix-plan-draft.png) |
+
+Sample data only. Click a screenshot to inspect it at full size.
+
+## Requirements
+
+- **Hermes Agent and Hermes Desktop 0.22.4 or later**, with the native plugin SDK and authenticated Python plugin backend support. The CLI alone cannot display this interface.
+- **Native local folder access** for local inspection. Hermes's sensitive-file protections still apply. A remote connection is not permission to read an arbitrary remote filesystem.
+- **A scoped VibeLeak owner API key and sufficient API entitlement** for website assessments. Local inspection needs neither a VibeLeak key nor a subscription.
+- **Hermes's Python environment** for the installation and credential helpers. A separate system Python may not have Hermes's modules.
+- **Node.js 22 and npm for development only.** Prepared plugin packages include the built renderer.
+
+Native acceptance has been exercised on Windows Desktop. Other operating systems have not received the same native acceptance checks.
+
+## Installation
+
+### Package or source checkout
+
+Use an extracted **0.2.0** package or source checkout of that version. From its root, run this with Hermes's Python interpreter:
 
 ```sh
 python scripts/install_local.py
 ```
 
-The unified package contains `plugin.yaml`, `desktop/plugin.js`, and the Python API under `dashboard/`. The installer copies only allowlisted package files into the active home's `plugins/vibeleak-atlas` and `desktop-plugins/vibeleak-atlas` directories, then enables the backend through Hermes's plugin API. It does not copy a development checkout's `.qa`, `node_modules`, environment files, or Git metadata.
+Here, `python` must resolve to the interpreter from your Hermes installation. The installer copies the agent backend and desktop renderer, asks Hermes to enable the plugin, and backs up existing configuration. It does not restart the gateway.
 
-It backs up the current profile config first and never restarts the gateway. It refuses to replace an existing installation without a deliberate upgrade workflow. If activation reports that a restart is required, arrange it yourself after saving work. Hermes's `plugins install` command is for Git identifiers; an arbitrary extracted-directory path is not a Git identifier.
+Open **VibeLeak Atlas** from the sidebar or command palette. If the renderer does not appear, run **Reload desktop plugins** from the command palette.
 
-Open **VibeLeak Atlas** in the sidebar or **Open VibeLeak Atlas** in the command palette. If the desktop file watcher has not discovered it, use the palette's **Reload desktop plugins** command.
+### Upgrade
 
-## First connection
-
-1. Enable the read-only source in the plugin. Until then it makes no upstream VibeLeak or DNS requests.
-2. Optionally enable hosting geography in **Config**. Cloudflare DNS-over-HTTPS receives the queried domain names. The bundled DB-IP Country Lite database performs the country lookup offline.
-3. Select a saved observation or add a public hostname to your local watchlist.
-
-Reserved hostnames, IP literals, credentials in URLs, and custom ports are refused. Atlas never connects to the target website. It connects only to fixed VibeLeak read endpoints and the fixed Cloudflare DNS resolver.
-
-### Private fleet
-
-Create a VibeLeak API key for your own account and store it as the profile-scoped Hermes secret `VIBELEAK_ATLAS_API_KEY`. Do not put a key in the renderer, a screenshot, chat, Git, or a website hostname.
-
-Use the minimum scopes required for the action:
-
-| Action | VibeLeak scopes |
-|---|---|
-| Saved scan list | `history:read` |
-| Score Watch events | `monitor:read` |
-| Selected owner scan | `scans:read` |
-| Requested owner Markdown report | `reports:read`, `findings:read` |
-
-Missing credentials, refused credentials, missing scopes, rate limits, and source failures have explicit states. A configured key is not a claim that VibeLeak has accepted it.
-
-Private observations stay in memory and never enter the local public-history database. They leave the plugin only when you explicitly copy a report or append a chat draft.
-
-## Terminal commands
-
-```text
-watch example.com
-unwatch example.com
-select example.com
-view globe
-view ascii
-view list
-refresh
-reset
-help
+```sh
+python scripts/install_local.py --upgrade
 ```
 
-These are local Atlas commands. The command strip cannot execute a shell or JavaScript. `watch` saves a hostname; it does not create a monitoring subscription or run a scan.
+The installer requires a recognized Atlas installation, backs up both plugin components, and preserves profile data. It restores the previous package files if activation fails. On Windows, unchanged files held open by the backend can remain in place.
+
+Reloading JavaScript does not prove that a running Python backend changed. If Atlas reports an incompatible or inactive backend, save your work and arrange a reload deliberately. Do not restart an active gateway just to clear a warning.
+
+### Catalog availability
+
+Using the native plugin SDK does not make Atlas bundled or catalog-listed. A listing requires a public repository, an exact reviewed commit, passing plugin validation, and a maintainer-merged submission. Making a repository public does not add it automatically.
+
+Until Atlas is listed, do not use `hermes plugins install vibeleak-atlas` as a catalog installation command. Read the official [catalog submission guide](https://hermes-agent.nousresearch.com/docs/developer-guide/plugins/catalog-submission).
+
+## First use
+
+### Inspect a local project
+
+1. Select **Local folder inspection**.
+2. Choose a folder through the native picker. Selection alone does not start inspection.
+3. Read the scope and limitations, then approve read-only inspection.
+4. Review candidates and coverage. Excluded or unreadable files are not passing checks.
+5. Open the fix-plan preview. Copy it or append it to a compatible chat as an **unsent draft**.
+6. Approve code changes separately in chat. Reinspect afterward, then release access.
+
+The inspector does not execute project code, install packages, write files, call a model, or upload source and findings to VibeLeak.
+
+### Assess an authorized website
+
+1. Create an owner key on the [VibeLeak API keys page](https://www.vibeleak.app/dashboard/api-keys) with `scan:write`, `scan:read`, and `findings:read`.
+2. Run the masked setup helper with Hermes's Python environment:
+
+   ```sh
+   python scripts/configure_owner.py
+   ```
+
+3. Enter the key only in the hidden prompt. It saves `VIBELEAK_ATLAS_API_KEY` through Hermes's profile-scoped secret management. Never paste a key into chat, the renderer, screenshots, or Git.
+4. Select **Website assessment**, refresh the connection, and enter a public hostname you own or are authorized to assess.
+5. Optionally attach repository context, then select **Review assessment**. Preparing the confirmation does not contact the target.
+6. Confirm the exact HTTPS target and explicitly approve both your authorization and at most one VibeLeak scan unit.
+7. Run the assessment, review its evidence, and preview a fix-plan draft. Approve subsequent changes separately.
+8. After the change and deployment, select **Review rescan**, approve the new request, and compare with the baseline.
+
+VibeLeak checks scopes and entitlement. Saving a key locally does not prove that the service will accept it. Keyless guest website scans are not supported by this plugin.
+
+## Privacy and data handling
+
+| Data or action | Handling |
+| --- | --- |
+| Local source and candidates | Read through native folder-scoped APIs. Source and local findings are not sent to VibeLeak. Reports remain in page memory. |
+| Protected and excluded files | Raw `.env` files, credential files, private keys, dependencies, generated output and Git internals are not inspected. |
+| Website assessments | Send the approved target to VibeLeak. VibeLeak performs the assessment and stores its website results under its service policies. Website mode is not offline. |
+| Owner key | Read through Hermes's backend secret provider. The renderer does not receive it. |
+| Local assessment records | SQLite stores installation-bound receipts, hostnames, optional repository hints and supplied runtime evidence in the active backend profile. It does not store the raw API key or website findings. |
+| Hosting lookup | Requires separate consent. Sends approved hostnames to Cloudflare DNS and uses bundled DB-IP country data locally. |
+| Fix-plan export | Copying uses the OS clipboard. Appending creates an unsent chat draft. A later user submission may share it with the selected model provider. |
+
+Changing the folder, profile, connection or applicable consent invalidates pending work. Releasing a folder clears its local report. Redaction covers recognizable patterns, not every possible sensitive value. Review a draft before copying or sending it.
+
+Read the full [privacy policy](docs/privacy.md) and [API compatibility notes](docs/api-compatibility.md).
+
+## Scope and limitations
+
+Atlas is a review tool, not a complete security audit or a guarantee that a site is safe.
+
+- Local inspection uses bounded static patterns, not a PHP parser, runtime execution, or a complete dependency scanner. False positives and missed issues are possible.
+- Default local limits are **600 files**, **256 KiB per file**, **8 MiB total**, **18 directory levels**, **12,000 listed entries**, and **100 review candidates**. Limits and refusals reduce the inspected scope.
+- Source requirements do not establish the serving PHP version, hosting configuration, or vendor backports. Advisory evidence remains separate and must come from the owner or hosting provider.
+- A missing finding, zero local candidates, or a better website grade does not independently prove a deployed fix works.
+- Website authorization is your attestation plus VibeLeak's API policy, not an independent ownership challenge.
+- There are no automatic scans, scheduled monitoring, automatic remediation, or deployments.
+
+If a website request is interrupted, it may still run and consume its unit. Use **Review same approval** to recover with the existing idempotency key. Do not create a separate replacement scan because the response was lost.
+
+## Technology
+
+| Component | Languages and tools | Role |
+| --- | --- | --- |
+| Native interface | JavaScript, JSX, React, `@hermes/plugin-sdk` | Native pages, dialogs, folder grants, connection state and unsent drafts. React comes from Hermes, not a second bundled copy. |
+| Visualizations | Three.js 0.170.0, WebGL, Canvas and shader code | Dithered globe, geographic labels and ASCII rendering. |
+| Styling | CSS and Hermes theme variables | Native themes and responsive layouts. |
+| Backend | Python, FastAPI and HTTPX | Authenticated plugin routes and bounded requests to the fixed VibeLeak API origin. Runs inside Hermes's backend. |
+| Local records | SQLite through Python's standard library | Durable approvals, installation identity and scan receipts. |
+| Geography | Natural Earth, DB-IP Country Lite, pure-Python MaxMind DB reader | Bundled maps and approximate hosting-country attribution. |
+| Build and tests | esbuild 0.25.12, npm, Node's test runner, Python `unittest` | Renderer bundling, regression checks and packaging. |
+
+The shipped renderer imports only the Hermes SDK and Hermes's React runtime. It does not embed a website iframe or fetch renderer code from a CDN.
+
+### Repository layout
+
+```text
+atlas/              Python assessment, receipt, comparison and advisory logic
+dashboard/          Authenticated plugin API entry and manifest
+desktop-src/        React/JSX components, local review rules and CSS
+desktop/            Built ESM renderer and bundle metadata
+assets/             Geographic data and source metadata
+scripts/            Build, setup, installation and packaging helpers
+tests/              Python and JavaScript regression tests
+docs/               Architecture, privacy and API documentation
+.github/assets/     README screenshots, animation and walkthrough video
+```
 
 ## Development
 
+Use Node.js 22, npm, and Hermes's Python environment:
+
 ```sh
 npm ci
-npm test
 python -m unittest discover -s tests -q
+npm test
 npm run build
 npm run package
 ```
 
-The package includes prepared geographic assets and the pure Python MMDB reader. To deliberately refresh licensed inputs, run `npm run assets`, review `assets/country-metadata.json`, `assets/asset-sources.json`, and third-party licenses, then rebuild.
+Packaging creates the plugin ZIP and checksum manifest under `artifacts/`. Keep credentials, local databases, QA homes and environment files out of source and release packages.
 
-The renderer builds into one ESM file. Its only external imports are the Hermes SDK and the host's React runtime. It does not ship a second React copy, load an iframe dashboard, or require a renderer CDN.
+Read [architecture](docs/architecture.md) for the component boundaries and [verification](docs/verification.md) for test procedures. Sample responses and isolated native checks do not establish live production acceptance.
 
-See [architecture](docs/architecture.md), [privacy](docs/privacy.md), [verification](docs/verification.md), and [visual direction](docs/visual-direction.md).
+## Troubleshooting
 
-## Licenses
+| Symptom | What to check |
+| --- | --- |
+| Atlas is missing from the sidebar | Confirm it is installed and enabled, then run **Reload desktop plugins**. |
+| The owner backend is inactive | Check that the current connection has the matching backend enabled. Reloading JavaScript alone does not reload Python. |
+| Folder access is unavailable | Use a local Desktop connection with the native folder API and its picker. Do not bypass protected files with another reader. |
+| The website key is refused | Check scopes, API entitlement, the active backend profile and secure key setup. |
+| Many files are excluded | Read the coverage breakdown. Dependencies, build output, protected files, unsupported formats and limits are reported separately. |
+| A website request is uncertain | Use **Review same approval**, not another independent request. |
+| A fix plan will not append | Focus a compatible chat on the same connection and profile, or copy the reviewed preview. |
 
-Project code is MIT-licensed. Three.js is MIT, the vendored MaxMind reader is Apache-2.0, DB-IP Country Lite is CC BY 4.0, and Natural Earth is public domain. See [third-party notices](THIRD_PARTY_NOTICES.md).
+## Contributing and reporting issues
+
+For a bug report, include the plugin and Hermes versions, operating system, selected workflow, steps to reproduce, and a redacted screenshot where useful. Do not post API keys, private findings, client source, or raw environment files.
+
+Keep changes focused, add a regression test, run the checks above, and update the docs. Contributions must respect explicit approval, native file grants, profile isolation and the plugin SDK. Do not bypass these controls or patch Hermes internals.
+
+For a suspected credential exposure, rotate the key through its provider first. Arrange a private report with the maintainer before sharing sensitive evidence. Use the [issue tracker](https://github.com/abundantbeing/hermes-vibeleak-atlas/issues) for non-sensitive bugs.
+
+## Support
+
+Created by [abundantbeing](https://github.com/abundantbeing).
+
+If Atlas is useful to you, you can support development through Ko-fi. Sponsorship is optional and does not replace VibeLeak's API access requirements.
+
+[![Support on Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/T8Z726J5YZ)
+
+## License
+
+Project code is [MIT-licensed](LICENSE). Geographic data, vendored libraries and demonstration media retain their own licenses. See [third-party notices](THIRD_PARTY_NOTICES.md) and [media credits](./.github/assets/readme/CREDITS.md).
