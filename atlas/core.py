@@ -66,17 +66,21 @@ def public_card(raw):
     try:domain=normalize_domain(raw.get('domain') or raw.get('url') or '')
     except ValueError:return None
     grade=raw.get('grade')
-    if not isinstance(grade,str):return None
-    grade=grade.strip().upper()
-    if grade not in (*GRADES,'N/A'):return None
-    score=raw.get('score')
-    if grade=='N/A':grade,score=None,None
-    elif not numeric(score) or not BANDS[grade][0]<=score<=BANDS[grade][1]:score=None
     vibe=raw.get('vibeSignal')
     ai_score=vibe.get('score') if isinstance(vibe,dict) else raw.get('agent_readiness_score',raw.get('vibesignal_score'))
     ai=None
     if numeric(ai_score):
         ai={'score':ai_score,'grade':vibe.get('grade') if isinstance(vibe,dict) and vibe.get('grade') in GRADES else None,'rubricVersion':str(vibe.get('rubricVersion','unknown'))[:80] if isinstance(vibe,dict) else 'unknown'}
+    if grade is None:
+        if ai is None:return None
+        score=None
+    else:
+        if not isinstance(grade,str):return None
+        grade=grade.strip().upper()
+        if grade not in (*GRADES,'N/A'):return None
+        score=raw.get('score')
+        if grade=='N/A':grade,score=None,None
+        elif not numeric(score) or not BANDS[grade][0]<=score<=BANDS[grade][1]:score=None
     scan_id=raw.get('scan_id',raw.get('id'))
     scan_id=scan_id if isinstance(scan_id,str) and re.fullmatch(r'[a-zA-Z0-9-]{1,80}',scan_id) else None
     return {'domain':domain,'grade':grade,'score':score,'scannedAt':clean_time(raw.get('scanned_at',raw.get('scannedAt'))),'scanId':scan_id,'ai':ai}

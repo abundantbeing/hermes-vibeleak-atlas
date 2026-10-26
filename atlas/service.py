@@ -14,7 +14,7 @@ import httpx
 from .core import LocalStore, clean_time, normalize_domain, normalize_index, public_card, unknown_geo, utc_now
 
 ORIGIN='https://www.vibeleak.app'
-UA='VibeLeak-Atlas/0.1 (+https://www.vibeleak.app)'
+UA='VibeLeak-Atlas/0.2 (+https://www.vibeleak.app)'
 MAX_RESPONSE=2*1024*1024
 READ_PATHS={'/api/trust-index','/api/public/scan-summary','/api/v1/trust-index/visibility','/api/v1/history','/api/v1/monitor-events'}
 ID_PATTERN=r'[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}'
@@ -23,7 +23,7 @@ ID_PATTERN=r'[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-f
 class SourceError(Exception):
     def __init__(self,state='unavailable'):
         self.state=state
-        super().__init__({'unauthorized':'The VibeLeak credential was refused.','forbidden':'This credential lacks the required scope or entitlement.','not-found':'No saved public result was found.','rate-limited':'VibeLeak rate-limited this read. Retry later.','unavailable':'VibeLeak did not return a usable response.'}.get(state,'The source is unavailable.'))
+        super().__init__({'unauthorized':'The VibeLeak credential was refused.','forbidden':'This credential lacks the required scope or entitlement.','not-found':'No saved public result was found.','rate-limited':'VibeLeak rate-limited this read. Retry later.','unavailable':'VibeLeak did not return a usable response.','connection-changed':'The owner connection changed during this read. Retry on the current account.','consent-required':'Source reads were disconnected during this request.'}.get(state,'The source is unavailable.'))
 
 
 class AtlasService:
@@ -43,6 +43,16 @@ class AtlasService:
         if patch is not None:
             with self._lock:self._last.clear()
         return result
+
+    def clear_history(self):
+        with self._lock:
+            self.store.clear_history()
+            self._last.clear()
+        return {'cleared':True}
+
+    def _require_context(self,key=None):
+        if not self.store.settings()['consent']:raise SourceError('consent-required')
+        if key is not None and key!=self._credential():raise SourceError('connection-changed')
 
     def _credential(self):
         try:value=self.key_provider()
@@ -104,12 +114,14 @@ class AtlasService:
                 payload=self._get('/api/v1/scans/'+scan_id,key=key)
                 raw=payload.get('data',{}).get('scan')
                 if not isinstance(raw,dict):raise SourceError()
+                self._require_context(key)
                 site=public_card(raw)
                 if not site or site['domain']!=domain:raise SourceError()
                 site['private']=True
                 site['findings']=self._safe_findings(raw.get('findings'))
                 return {'state':'ready','site':site}
             site,reason=self._public_site(domain)
+            self._require_context()
             return {'state':reason or 'ready','site':site}
         except SourceError as exc:return {'state':exc.state,'site':None,'message':str(exc)}
 
@@ -173,15 +185,18 @@ class AtlasService:
                     raw=data.get('data',{}).get('scans')
                     sites=normalize_index(raw,100)
                     raw_count=len(raw) if isinstance(raw,list) else 0
+                    self._require_context(key)
                     try:events=self._events(key);event_state='ready'
                     except SourceError as exc:event_state=exc.state
                     for site in sites:site['private']=True
+                self._require_context(key)
                 if use_geo and self.geo is not None and self.geo.available():
                     with ThreadPoolExecutor(max_workers=4) as pool:
                         geos=list(pool.map(self.geo.resolve,[s['domain'] for s in sites]))
                     for site,location in zip(sites,geos):site['geo']=location
                 else:
                     for site in sites:site['geo']=unknown_geo('Geography is disabled.' if not use_geo else 'Country database is unavailable.')
+                self._require_context(key)
                 allowed={row['domain'] for row in sites}
                 history=[]
                 if mode=='public':
@@ -197,14 +212,16 @@ class AtlasService:
                 return dict(base,state=exc.state,message=str(exc))
 
     def markdown(self,domain,mode='public',scan_id=None):
+        key=self._credential() if mode=='fleet' else None
         result=self.site(domain,mode,scan_id)
         site=result.get('site')
         if not site:return result
         if mode=='fleet':
-            key=self._credential()
             if not key:return {'state':'not-connected'}
             try:
+                self._require_context(key)
                 markdown=self._get('/api/v1/reports/'+scan_id+'/markdown',key=key,text=True)
+                self._require_context(key)
                 if not isinstance(markdown,str) or len(markdown)>MAX_RESPONSE:raise SourceError()
                 return {'state':'ready','markdown':markdown,'private':True}
             except SourceError as exc:return {'state':exc.state,'message':str(exc)}
