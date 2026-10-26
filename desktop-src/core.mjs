@@ -10,6 +10,10 @@ export function layoutLabels(points,width,height){
   }
   return placed;
 }
+export function handoffBinding({scope,mode,domain,scanId,consent,privateVersion,replayId}){
+  return consent&&domain&&!replayId?JSON.stringify([scope,mode,domain,scanId||null,privateVersion||null]):null;
+}
+export function handoffIsCurrent(handoff,binding){return typeof binding==='string'&&handoff?.binding===binding&&typeof handoff.markdown==='string'}
 export function scopeKey(profile,epoch,connection='local'){return JSON.stringify([connection,profile,epoch])}
 export function filterSites(rows,{query='',grade=null,location='all',country=null,lens='trust'}={}){
   return rows.filter(row=>(!query||row.domain.toLowerCase().includes(query.toLowerCase()))&&(!grade||(lens==='ai'?row.ai?.grade:row.grade)===grade)&&(!country||row.geo?.country===country)&&(location!=='unknown'||row.geo?.status!=='mapped'));
@@ -36,9 +40,9 @@ export function historyChanges(history){
   for(let i=1;i<history.length;i++){const before=new Map(history[i-1].sites.map(s=>[s.domain,s]));for(const site of history[i].sites){const prior=before.get(site.domain);if(prior&&prior.grade!==site.grade)events.push({id:`${history[i].id}:${site.domain}`,domain:site.domain,kind:'grade-changed',from:prior.grade,to:site.grade,occurredAt:history[i].capturedAt})}}
   return events.reverse().slice(0,50);
 }
-export function asciiMap(lines,sites){
+export function asciiMap(lines,sites,lens='trust'){
   const grid=lines.map(line=>[...line]);
-  for(const group of groupCountries(sites)){const row=Math.max(0,Math.min(grid.length-1,Math.round((82-group.lat)/5.7)));const col=Math.max(0,Math.min(79,Math.round((group.lon+178)/4.5)));grid[row][col]=group.grade||'?'}
+  for(const group of groupCountries(sites,lens)){const row=Math.max(0,Math.min(grid.length-1,Math.round((82-group.lat)/5.7)));const col=Math.max(0,Math.min(79,Math.round((group.lon+178)/4.5)));grid[row][col]=group.grade||'?'}
   return grid.map(row=>row.join('')).join('\n');
 }
 export function ageLabel(value,now=Date.now()){const time=Date.parse(value);if(!Number.isFinite(time))return 'unknown';const elapsed=Math.max(0,now-time);if(elapsed<60000)return '<1m';if(elapsed<3600000)return `${Math.floor(elapsed/60000)}m`;if(elapsed<86400000)return `${Math.floor(elapsed/3600000)}h`;return `${Math.floor(elapsed/86400000)}d`}
