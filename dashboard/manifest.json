@@ -1,8 +1,8 @@
 {
   "name": "vibeleak-atlas",
   "label": "VibeLeak Atlas",
-  "description": "Read-only website posture, hosting geography, and owner scan workflows.",
-  "icon": "Globe",
-  "version": "0.1.0",
-  "api": "plugin_api.py"
+  "description": "Owner-approved assessments, private evidence, fix-plan drafts and rescan comparison.",
+  "icon": "Shield",
+  "version": "0.2.0",
+  "api": "workbench_api.py"
 }

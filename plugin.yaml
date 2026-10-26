@@ -1,6 +1,6 @@
 name: vibeleak-atlas
-version: "0.1.0"
-description: "Website security observations, a dithered globe, ASCII map, and private VibeLeak scan workflows."
+version: "0.2.0"
+description: "Owner-approved website assessments, private evidence, fix-plan drafts and comparable rescans."
 author: VibeLeak
 license: MIT
 homepage: https://github.com/abundantbeing/hermes-vibeleak-atlas
@@ -10,3 +10,8 @@ requires_hermes: ">=0.22.4"
 provides_tools: []
 provides_hooks: []
 requires_env: []
+optional_env:
+  - name: VIBELEAK_ATLAS_API_KEY
+    description: Owner key for explicitly approved scans and locally initiated private results. Requires scan:write, scan:read and findings:read.
+    password: true
+    url: https://www.vibeleak.app/dashboard/api-keys
