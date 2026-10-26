@@ -18,7 +18,7 @@ VibeLeak Atlas brings authorized website assessments and read-only local code in
 
 **[Watch or download the full narrated walkthrough](./.github/assets/readme/vibeleak-atlas-demo.mp4)** · 93 seconds · 720p · voiceover, captions, music and sound effects
 
-The animation is a short, silent preview. The full video includes both workflows. All captures show the actual native plugin. Website responses are labelled samples, and local inspection uses a disposable PHP example. These are not live production findings or client projects. See the [media credits](./.github/assets/readme/CREDITS.md).
+The animation is a short, silent preview. The full video includes both workflows. All captures show the native plugin with sample website responses and a sample PHP project. These are not live production findings or client projects. See the [media credits](./.github/assets/readme/CREDITS.md).
 
 ## What you can do
 
@@ -54,7 +54,7 @@ Both workflows can prepare a reviewed draft for a compatible Hermes chat. **Atla
 
 | Local review candidates | Unsent fix-plan review |
 | --- | --- |
-| [![Bounded PHP review of the disposable example project](./.github/assets/readme/local-review.png)](./.github/assets/readme/local-review.png) | [![Redacted fix-plan draft with copy and append actions](./.github/assets/readme/fix-plan-draft.png)](./.github/assets/readme/fix-plan-draft.png) |
+| [![Bounded PHP review of a sample project](./.github/assets/readme/local-review.png)](./.github/assets/readme/local-review.png) | [![Redacted fix-plan draft with copy and append actions](./.github/assets/readme/fix-plan-draft.png)](./.github/assets/readme/fix-plan-draft.png) |
 
 Sample data only. Click a screenshot to inspect it at full size.
 
@@ -200,7 +200,7 @@ npm run package
 
 Packaging creates the plugin ZIP and checksum manifest under `artifacts/`. Keep credentials, local databases, QA homes and environment files out of source and release packages.
 
-Read [architecture](docs/architecture.md) for the component boundaries and [verification](docs/verification.md) for test procedures. Sample responses and isolated native checks do not establish live production acceptance.
+Read [architecture](docs/architecture.md) for the component boundaries and [verification](docs/verification.md) for test procedures.
 
 ## Troubleshooting
 
@@ -224,7 +224,7 @@ For a suspected credential exposure, rotate the key through its provider first. 
 
 ## Support
 
-Created by [abundantbeing](https://github.com/abundantbeing).
+Maintained by [@abundantbeing](https://github.com/abundantbeing).
 
 If Atlas is useful to you, you can support development through Ko-fi. Sponsorship is optional and does not replace VibeLeak's API access requirements.
 
