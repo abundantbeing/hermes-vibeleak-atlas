@@ -22,9 +22,7 @@ Copying a handoff exports private evidence to the OS clipboard. Appending one ex
 
 ## Local storage
 
-The active backend profile stores `plugin-data/vibeleak-atlas/workbench.sqlite3`. It holds a random installation secret, a read-consent epoch, approved-request metadata, credential HMAC bindings, local/upstream scan identifiers, website hostnames, optional project hints and explicitly supplied PHP runtime evidence. It does not store the raw API key or findings. Completed records are bounded per credential; confirmation intents expire. Uncertain requests remain available for deliberate idempotent recovery.
-
-The former viewer's `atlas.sqlite3` may remain in an upgraded profile. Its old watchlist/history is not imported or exposed by the workbench. Upgrades preserve profile data rather than silently deleting it.
+The active backend profile stores `plugin-data/vibeleak-atlas/workbench.sqlite3`. It holds a random installation secret, a read-consent epoch, approved-request metadata, credential HMAC bindings, local/upstream scan identifiers, website hostnames, optional project hints and explicitly supplied PHP runtime evidence. It does not store the raw API key or findings. Completed records are bounded per credential; confirmation intents expire. Uncertain requests remain available for deliberate idempotent recovery. Upgrades preserve existing profile data rather than deleting it.
 
 These files rely on the OS account and filesystem. They are not an encrypted vault or proof of physical hardware identity. Anyone able to modify the user's local database can alter it. Copying/restoring a whole profile also copies its installation identity; it does not establish fresh scans on another machine.
 

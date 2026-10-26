@@ -22,7 +22,7 @@ Hermes connection + profile + activation
 
 `atlas/workbench.py` reuses the fixed-origin HTTP client while admitting only the scan POST and receipt-bound private detail in its active workflow. `atlas/receipts.py` stores metadata in a separate SQLite ledger with atomic intent claims, persistent idempotency keys, installation HMAC identity and read-consent epochs. Findings and credentials are not persisted there.
 
-`atlas/workbench_api.py` requires Hermes framework admission for every route. Mutations have bounded JSON bodies. Long-running execution runs in a threadpool instead of blocking the API event loop. `dashboard/workbench_api.py` uses a versioned filename/package namespace so the new protocol does not accidentally reuse the old viewer's imported package.
+`atlas/workbench_api.py` requires Hermes framework admission for every route. Mutations have bounded JSON bodies. Long-running execution runs in a threadpool instead of blocking the API event loop. `dashboard/workbench_api.py` exposes the versioned workbench backend namespace.
 
 The renderer's query identities include connection, profile, activation, credential and consent. Account changes remount private state. Consent changes hide evidence and invalidate previews. Late results cannot populate another selection or owner. Inactive private queries have no cache retention.
 

@@ -1,6 +1,6 @@
 # API compatibility
 
-Atlas uses the existing VibeLeak API at the fixed origin `https://www.vibeleak.app`. The workbench needs no new server endpoint or separate identity service. Contracts were checked against server main `705300eb4eb4103177ab79a70061b974a3c9f3a2`.
+Atlas uses the existing VibeLeak API at the fixed origin `https://www.vibeleak.app`. The workbench needs no separate identity service.
 
 | Operation | Contract | Required scopes |
 |---|---|---|

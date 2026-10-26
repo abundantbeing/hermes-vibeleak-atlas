@@ -13,4 +13,4 @@ Public and account-wide results are never imported. Pausing result reads hides p
 
 If the renderer is missing, use **Reload desktop plugins**. If the workbench backend is not active, the page fails closed; copied files alone do not prove Python activation. Do not restart the gateway without deliberately saving work and arranging it.
 
-Read [privacy](docs/privacy.md) before connecting an owner key. Live owner acceptance requires a real credential and an explicitly authorized target; QA fixtures are not real security results.
+Read [privacy](docs/privacy.md) before connecting an owner key.
