@@ -155,6 +155,8 @@ Atlas is a review tool, not a complete security audit or a guarantee that a site
 - A missing finding, zero local candidates, or a better website grade does not independently prove a deployed fix works.
 - Website authorization is your attestation plus VibeLeak's API policy, not an independent ownership challenge.
 - There are no automatic scans, scheduled monitoring, automatic remediation, or deployments.
+- Rescan comparisons are not comparable until VibeLeak returns coverage and version context for both scans. Some VibeLeak deployments do not return that context yet.
+- Some VibeLeak checks can misreport. TLS certificate status, for example, may be wrong. Verify a certificate or header yourself before acting on a finding.
 
 If a website request is interrupted, it may still run and consume its unit. Use **Review same approval** to recover with the existing idempotency key. Do not create a separate replacement scan because the response was lost.
 
