@@ -1,16 +1,22 @@
 """Install an allowlisted native plugin without restarting Hermes."""
 from pathlib import Path
 from datetime import datetime,timezone
-import argparse,json,os,shutil,sys,tempfile
+import argparse,json,os,shutil,subprocess,sys,tempfile
 
 parser=argparse.ArgumentParser();parser.add_argument('--home',type=Path,help='Explicit Hermes home. Defaults to the active profile home.');parser.add_argument('--source',type=Path,default=Path(__file__).resolve().parents[1]);parser.add_argument('--upgrade',action='store_true',help='Back up and replace a recognized Atlas install; preserve profile data.');args=parser.parse_args()
 if args.home:os.environ['HERMES_HOME']=str(args.home.resolve())
 try:
     from hermes_constants import get_hermes_home
-    from hermes_cli.plugins_cmd import dashboard_set_agent_plugin_enabled
-    import hermes_yaml as yaml
+    import yaml
 except ImportError:
-    sys.exit('Run this with Hermes\'s Python environment. It needs the installed Hermes plugin enable API.')
+    sys.exit('Run this with Hermes\'s Python environment. It needs Hermes and PyYAML.')
+def enable_plugin(name):
+    cli=Path(sys.executable).with_name('hermes.exe' if os.name=='nt' else 'hermes')
+    cli=str(cli) if cli.is_file() else shutil.which('hermes')
+    if not cli:raise RuntimeError(f'Hermes CLI not found. After installing, run: hermes plugins enable {name} --no-allow-tool-override')
+    proc=subprocess.run([cli,'plugins','enable',name,'--no-allow-tool-override'],capture_output=True,text=True,timeout=180)
+    detail=((proc.stderr or '').strip() or (proc.stdout or '').strip())[-300:]
+    return {'ok':proc.returncode==0,'restart_required':True,'error':None if proc.returncode==0 else (detail or f'hermes plugins enable exited {proc.returncode}')}
 source=args.source.resolve();home=Path(get_hermes_home());target=home/'plugins'/'vibeleak-atlas';desktop=home/'desktop-plugins'/'vibeleak-atlas'
 manifest=yaml.safe_load((source/'plugin.yaml').read_text(encoding='utf-8'))
 if manifest.get('name')!='vibeleak-atlas':sys.exit('Refusing a package with an unexpected plugin identifier.')
@@ -76,7 +82,7 @@ with tempfile.TemporaryDirectory(prefix='.atlas-install-',dir=staging) as tmp, t
         if not in_place:
             for prepared,destination in ((stage,target),(ui,desktop)):
                 os.rename(prepared,destination);installed.append(destination)
-        result=dashboard_set_agent_plugin_enabled('vibeleak-atlas',enabled=True)
+        result=enable_plugin('vibeleak-atlas')
         if not result.get('ok'):raise RuntimeError('Hermes refused activation: '+str(result.get('error','unknown reason'))[:200])
     except Exception as exc:
         if in_place:
