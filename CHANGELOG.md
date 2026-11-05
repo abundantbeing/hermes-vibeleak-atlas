@@ -9,7 +9,7 @@ First preview of VibeLeak Atlas for Hermes Desktop.
 - **Comparable rescans:** after an approved change and deployment, request a rescan and compare it with its baseline.
 - **Local folder inspection:** read-only static review of permitted PHP, JavaScript, TypeScript, JSON, YAML and configuration files, with coverage and exclusion reporting.
 - **Hosting map:** an optional, approximate hosting-country view for your approved assessments. The DB-IP country-data credit is shown in the interface.
-- **Installer:** a Hermes-environment installer, backup-aware upgrades, and a hidden owner-key setup helper.
+- **Installer:** a Hermes-environment installer with backup-aware upgrades. The owner key is entered in Settings ▸ Plugins and stored by Hermes.
 
 Requires Hermes Agent and Hermes Desktop 0.22.6 or later. Website assessments need a VibeLeak owner API key, which is listed under the Pro plan. Local folder inspection needs neither a VibeLeak key nor an account.
 

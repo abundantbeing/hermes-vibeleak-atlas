@@ -15,3 +15,9 @@ optional_env:
     description: Owner key for explicitly approved scans and locally initiated private results. Requires scan:write, scan:read and findings:read.
     password: true
     url: https://www.vibeleak.app/dashboard/api-keys
+config_schema:
+  api_key:
+    type: secret
+    env: VIBELEAK_ATLAS_API_KEY
+    label: VibeLeak owner API key
+    description: Scoped to scan:write, scan:read and findings:read. Used only for website assessments you approve.

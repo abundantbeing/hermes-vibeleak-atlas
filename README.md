@@ -113,19 +113,13 @@ The inspector does not execute project code, install packages, write files, call
 
 ### Assess an authorized website
 
-1. Create an owner key on the [VibeLeak API keys page](https://www.vibeleak.app/dashboard/api-keys) with `scan:write`, `scan:read`, and `findings:read`.
-2. Run the masked setup helper with Hermes's Python environment:
-
-   ```sh
-   python scripts/configure_owner.py
-   ```
-
-3. Enter the key only in the hidden prompt. It saves `VIBELEAK_ATLAS_API_KEY` through Hermes's profile-scoped secret management. Never paste a key into chat, the renderer, screenshots, or Git.
-4. Select **Website assessment**, refresh the connection, and enter a public hostname you own or are authorized to assess.
-5. Optionally attach repository context, then select **Review assessment**. Preparing the confirmation does not contact the target.
-6. Confirm the exact HTTPS target and explicitly approve both your authorization and at most one VibeLeak scan unit.
-7. Run the assessment, review its evidence, and preview a fix-plan draft. Approve subsequent changes separately.
-8. After the change and deployment, select **Review rescan**, approve the new request, and compare with the baseline.
+1. Create an owner key on the [VibeLeak API keys page](https://www.vibeleak.app/dashboard/api-keys) with `scan:write`, `scan:read`, and `findings:read`. API keys are listed under the Pro plan at [vibeleak.app/pricing](https://www.vibeleak.app/pricing).
+2. Open **Settings ▸ Plugins ▸ VibeLeak Atlas** and paste the key into the **VibeLeak owner API key** field. Hermes stores it in its secret store. Never paste a key into chat, the renderer, screenshots, or Git.
+3. Select **Website assessment**, refresh the connection, and enter a public hostname you own or are authorized to assess.
+4. Optionally attach repository context, then select **Review assessment**. Preparing the confirmation does not contact the target.
+5. Confirm the exact HTTPS target and explicitly approve both your authorization and at most one VibeLeak scan unit.
+6. Run the assessment, review its evidence, and preview a fix-plan draft. Approve subsequent changes separately.
+7. After the change and deployment, select **Review rescan**, approve the new request, and compare with the baseline.
 
 VibeLeak checks scopes and entitlement. Saving a key locally does not prove that the service will accept it. Keyless guest website scans are not supported by this plugin.
 
@@ -149,7 +143,7 @@ Read the full [privacy policy](docs/privacy.md) and [API compatibility notes](do
 
 - **Network:** VibeLeak's API, only for website assessments you approve. Cloudflare DNS over HTTPS, only for the hosting-country lookup after separate consent. The country database is bundled and used offline.
 - **Local files:** Atlas reads only the folder you select, and only after you approve inspection. Protected and excluded files are not opened. While a folder is selected and the window is visible, Atlas checks about every four seconds that the folder grant still exists. That check lists granted folders; it does not open files.
-- **Credentials:** the VibeLeak owner key is saved through Hermes's secret store, and the backend reads it there. The renderer never receives it.
+- **Credentials:** the owner key is entered in **Settings ▸ Plugins ▸ VibeLeak Atlas**, stored in Hermes's secret store, and read by the backend. The renderer never receives it.
 - **Commands:** the installer runs `hermes plugins enable vibeleak-atlas --no-allow-tool-override` through Hermes's CLI. Atlas itself runs no shell commands.
 - **Telemetry and analytics:** none. Atlas sends nothing beyond the requests described above.
 

@@ -5,9 +5,6 @@ import hashlib
 from pathlib import Path
 import re
 import sqlite3
-import shlex
-import subprocess
-import sys
 import httpx
 from .advisories import assess_php
 from .comparison import assessment_context, compare_context
@@ -44,9 +41,7 @@ class WorkbenchService(AtlasService):
         key = self._credential()
         connected, epoch = self.receipts.connection_state()
         owner = self.receipts.binding(key)
-        command = ['python', str(Path(__file__).resolve().parents[1]/'scripts'/'configure_owner.py'), '--home', str(self.home)]
-        setup_command = subprocess.list2cmdline(command) if sys.platform == 'win32' else shlex.join(command)
-        return {'setupCommand': setup_command, 'version': '0.2.0', 'backendBuild': BACKEND_BUILD, 'workbenchProtocol': 1, 'privacyScope': 'locally-initiated-scans-only',
+        return {'ownerKeySettings': 'Settings ▸ Plugins ▸ VibeLeak Atlas', 'version': '0.2.0', 'backendBuild': BACKEND_BUILD, 'workbenchProtocol': 1, 'privacyScope': 'locally-initiated-scans-only',
                 'localScanProvenanceAvailable': True, 'privateConfigured': bool(key),
                 'privateVersion': owner[:16] if owner else None, 'connectionEpoch': epoch,
                 'connected': connected, 'apiOrigin': ORIGIN, 'maxUnits': 1,
