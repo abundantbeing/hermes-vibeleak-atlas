@@ -3,7 +3,7 @@ import {host,Button,Dialog,DialogContent,DialogHeader,DialogTitle,DialogDescript
 import {scanLocalFolder,localFixPlan,assessLocalRuntime,explainLocalCoverage} from './local-inspection.mjs';
 import {canDraftTo} from './workbench.mjs';
 const B=({children,...props})=><Button size="sm" variant="ghost" type="button" {...props}>{children}</Button>;
-const runtimeLabels={'unknown':'Serving runtime not established','unattested':'Confirm the source of this runtime version','potentially-affected':'Version falls below the advisory fixes','upstream-fix-version-observed':'Version meets the October 21 fix range','vendor-verification-required':'Vendor verification or a supported branch is needed'};
+const runtimeLabels={'unknown':'Serving runtime not established','unattested':'Confirm the source of this runtime version','potentially-affected':'Version is older than the advisory fix','upstream-fix-version-observed':'Version meets the October 21 fix range','vendor-verification-required':'Vendor verification or a supported branch is needed'};
 export default function LocalInspection({ctx,scope,scopeNow}){
   const [folders,setFolders]=useState([]),[folder,setFolder]=useState(null),[approved,setApproved]=useState(false),[busy,setBusy]=useState(false),[report,setReport]=useState(null),[message,setMessage]=useState('Choose a local project. Nothing is inspected until you approve the scope.'),[progress,setProgress]=useState(null),[preview,setPreview]=useState(null),[version,setVersion]=useState(''),[attested,setAttested]=useState(false);
   const alive=useRef(true),generation=useRef(0),busyRef=useRef(false),folderRef=useRef(null),reportRef=useRef(null);
