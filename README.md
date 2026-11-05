@@ -169,7 +169,7 @@ If a website request is interrupted, it may still run and consume its unit. Use 
 | Styling | CSS and Hermes theme variables | Native themes and responsive layouts. |
 | Backend | Python, FastAPI and HTTPX | Authenticated plugin routes and bounded requests to the fixed VibeLeak API origin. Runs inside Hermes's backend. |
 | Local records | SQLite through Python's standard library | Durable approvals, installation identity and scan receipts. |
-| Geography | Natural Earth, DB-IP Country Lite, pure-Python MaxMind DB reader | Bundled maps and approximate hosting-country attribution. |
+| Geography | Natural Earth (public domain), DB-IP Country Lite ([IP Geolocation by DB-IP](https://db-ip.com), CC BY 4.0), pure-Python MaxMind DB reader | Bundled maps and approximate hosting-country attribution. The interface displays the DB-IP credit. |
 | Build and tests | esbuild 0.25.12, npm, Node's test runner, Python `unittest` | Renderer bundling, regression checks and packaging. |
 
 The shipped renderer imports only the Hermes SDK and Hermes's React runtime. It does not embed a website iframe or fetch renderer code from a CDN.
