@@ -5,7 +5,7 @@ ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'artifacts';OUT.mkdir(exist_ok=True)
 licenses=ROOT/'licenses';licenses.mkdir(exist_ok=True)
 shutil.copy2(ROOT/'node_modules'/'three'/'LICENSE',licenses/'three.txt')
-allow_files=['plugin.yaml','__init__.py','LICENSE','README.md','CHANGELOG.md','THIRD_PARTY_NOTICES.md','after-install.md','scripts/install_local.py','scripts/configure_owner.py']
+allow_files=['plugin.yaml','__init__.py','LICENSE','README.md','CHANGELOG.md','THIRD_PARTY_NOTICES.md','after-install.md','scripts/install_local.py']
 allow_dirs=['atlas','assets','vendor','dashboard','desktop','licenses','docs','.github/assets/readme']
 files=[ROOT/name for name in allow_files]
 for directory in allow_dirs:

@@ -44,10 +44,6 @@ with tempfile.TemporaryDirectory(prefix='.atlas-install-',dir=staging) as tmp, t
         if not folder.is_dir():continue
         if folder.is_symlink() or any(p.is_symlink() for p in folder.rglob('*')):sys.exit('Symlinked package entries are not supported.')
         shutil.copytree(folder,stage/name,ignore=shutil.ignore_patterns('__pycache__','*.pyc','build-contract.md'))
-    helper=source/'scripts'/'configure_owner.py'
-    if helper.is_file():
-        if helper.is_symlink() or helper.parent.is_symlink():sys.exit('Symlinked setup helpers are not supported.')
-        (stage/'scripts').mkdir(exist_ok=True);shutil.copy2(helper,stage/'scripts'/'configure_owner.py')
     ui=Path(ui_tmp)/'vibeleak-atlas';ui.mkdir();shutil.copy2(source/'desktop'/'plugin.js',ui/'plugin.js')
     moved=[];installed=[];changed_files=[];created_dirs=[];in_place=False
     def atomic_copy(src,dst):

@@ -42,12 +42,6 @@ class InstallerTests(unittest.TestCase):
         target=self.home/'plugins'/'vibeleak-atlas';target.mkdir(parents=True);(target/'owned.txt').write_text('leave this file')
         self.assertNotEqual(self.invoke('--upgrade'),0)
         self.assertEqual((target/'owned.txt').read_text(),'leave this file')
-    def test_secure_setup_helper_is_available_in_the_installed_package(self):
-        self.assertEqual(self.invoke(),0)
-        helper=self.home/'plugins'/'vibeleak-atlas'/'scripts'/'configure_owner.py'
-        self.assertTrue(helper.is_file())
-        self.assertEqual(helper.read_bytes(),(ROOT/'scripts'/'configure_owner.py').read_bytes())
-
     def test_failed_upgrade_reports_the_failure_class(self):
         self.assertEqual(self.invoke(),0)
         result=self.invoke('--upgrade',enable_ok=False)
