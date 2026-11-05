@@ -1,6 +1,6 @@
 {
   "entry": "plugin.js",
-  "bytes": 658774,
+  "bytes": 658952,
   "imports": [
     "react",
     "@hermes/plugin-sdk",
