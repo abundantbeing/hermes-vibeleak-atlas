@@ -2,6 +2,7 @@
   "name": "hermes-vibeleak-atlas",
   "version": "0.2.0",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "description": "Native Hermes Desktop website security atlas for VibeLeak.",
   "scripts": {
