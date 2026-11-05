@@ -1,6 +1,6 @@
 # After installation
 
-Open **VibeLeak Atlas** in the Hermes Desktop sidebar or command palette.
+The desktop page starts off after installation. Turn on **VibeLeak Atlas** in **Settings ▸ Plugins**, then open it in the Hermes Desktop sidebar or command palette.
 
 1. Create an owner API key with `scan:write`, `scan:read` and `findings:read`.
 2. From the extracted package, run `python scripts/configure_owner.py` using Hermes's Python environment. The hidden prompt saves `VIBELEAK_ATLAS_API_KEY` through Hermes secrets. Do not paste it into chat or the renderer.

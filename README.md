@@ -80,7 +80,7 @@ python scripts/install_local.py
 
 Here, `python` must resolve to the interpreter from your Hermes installation. The installer copies the agent backend and desktop renderer, asks Hermes to enable the plugin, and backs up existing configuration. It does not restart the gateway.
 
-Open **VibeLeak Atlas** from the sidebar or command palette. If the renderer does not appear, run **Reload desktop plugins** from the command palette.
+The desktop page starts off after installation. Turn on **VibeLeak Atlas** in **Settings ▸ Plugins**, then open it from the sidebar or command palette. If it does not appear, run **Reload desktop plugins** from the command palette.
 
 ### Upgrade
 
