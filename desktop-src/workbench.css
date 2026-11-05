@@ -10,7 +10,7 @@
 .wba-dialog-body{min-width:0;max-width:100%;gap:18px;overflow-x:hidden;overflow-wrap:anywhere}
 .wba-dialog-body>*{min-width:0;max-width:100%;box-sizing:border-box}
 .wba-dialog .wba-draft,.wba-dialog .wba-handoff{display:block;box-sizing:border-box;width:100%;min-width:0;max-width:100%;margin:0;padding:14px 16px;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;font:12px/1.75 var(--font-mono,monospace);border:1px solid var(--ui-stroke-secondary);background:color-mix(in srgb,var(--ui-text-primary) 3%,transparent);color:var(--ui-text-secondary);max-height:48dvh;overflow-y:auto}
-.wba-dialog-body [data-slot=dialog-footer]{flex-wrap:wrap;gap:8px}
+.wba-dialog-body .wba-dialog-footer{flex-wrap:wrap;gap:8px}
 .wba-repository{align-items:start;flex-wrap:wrap}
 .wba-repository input{flex:1 1 160px}
 .wba-repository-actions{display:flex;flex-wrap:wrap;gap:5px}
