@@ -6,7 +6,7 @@ import httpx
 ROOT=Path(__file__).resolve().parents[1]
 ASSETS=ROOT/'assets';CACHE=ROOT/'vendor-source-cache';VENDOR=ROOT/'vendor'
 for p in (ASSETS,CACHE,VENDOR):p.mkdir(parents=True,exist_ok=True)
-client=httpx.Client(timeout=60,headers={'User-Agent':'VibeLeak-Atlas/0.1 (+https://www.vibeleak.app)'},follow_redirects=False)
+client=httpx.Client(timeout=60,headers={'User-Agent':'VibeLeak-Atlas/0.2 (+https://www.vibeleak.app)'},follow_redirects=False)
 manifest=[]
 def download(url,path,cap=20_000_000):
     if not path.exists():

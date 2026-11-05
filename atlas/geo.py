@@ -15,7 +15,7 @@ class GeoEngine:
     def __init__(self,assets,*,transport=None):
         self.assets=Path(assets)
         self._cache={};self._lock=threading.RLock();self._reader=None
-        self.client=httpx.Client(transport=transport,timeout=httpx.Timeout(6,connect=3),follow_redirects=False,headers={'User-Agent':'VibeLeak-Atlas/0.1 (+https://www.vibeleak.app)','Accept':'application/dns-json'},limits=httpx.Limits(max_connections=4,max_keepalive_connections=4))
+        self.client=httpx.Client(transport=transport,timeout=httpx.Timeout(6,connect=3),follow_redirects=False,headers={'User-Agent':'VibeLeak-Atlas/0.2 (+https://www.vibeleak.app)','Accept':'application/dns-json'},limits=httpx.Limits(max_connections=4,max_keepalive_connections=4))
         try:
             vendor=str(self.assets.parent/'vendor')
             if vendor not in sys.path:sys.path.append(vendor)
