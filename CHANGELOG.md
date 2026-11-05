@@ -11,6 +11,6 @@ First preview of VibeLeak Atlas for Hermes Desktop.
 - **Hosting map:** an optional, approximate hosting-country view for your approved assessments. The DB-IP country-data credit is shown in the interface.
 - **Installer:** a Hermes-environment installer, backup-aware upgrades, and a hidden owner-key setup helper.
 
-Requires Hermes Agent and Hermes Desktop 0.22.4 or later. Website assessments need a VibeLeak owner API key. Local folder inspection needs neither a VibeLeak key nor an account.
+Requires Hermes Agent and Hermes Desktop 0.22.6 or later. Website assessments need a VibeLeak owner API key. Local folder inspection needs neither a VibeLeak key nor an account.
 
 See the README's scope and limitations section before relying on any result.

@@ -60,7 +60,7 @@ Sample data only. Click a screenshot to inspect it at full size.
 
 ## Requirements
 
-- **Hermes Agent and Hermes Desktop 0.22.4 or later**, with the native plugin SDK and authenticated Python plugin backend support. The CLI alone cannot display this interface.
+- **Hermes Agent and Hermes Desktop 0.22.6 or later**, with the native plugin SDK, the folder-grant file API used by local inspection, and authenticated Python plugin backend support. The CLI alone cannot display this interface.
 - **Native local folder access** for local inspection. Hermes's sensitive-file protections still apply. A remote connection is not permission to read an arbitrary remote filesystem.
 - **A scoped VibeLeak owner API key and sufficient API entitlement** for website assessments. Local inspection needs neither a VibeLeak key nor a subscription.
 - **Hermes's Python environment** for the installation and credential helpers. A separate system Python may not have Hermes's modules.
