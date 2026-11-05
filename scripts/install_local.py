@@ -7,9 +7,12 @@ parser=argparse.ArgumentParser();parser.add_argument('--home',type=Path,help='Ex
 if args.home:os.environ['HERMES_HOME']=str(args.home.resolve())
 try:
     from hermes_constants import get_hermes_home
-    import yaml
+    try:
+        import hermes_yaml as yaml  # Hermes' own YAML module (current builds)
+    except ImportError:
+        import yaml  # PyYAML fallback for builds without hermes_yaml
 except ImportError:
-    sys.exit('Run this with Hermes\'s Python environment. It needs Hermes and PyYAML.')
+    sys.exit('Run this with Hermes\'s Python environment. It needs Hermes and a YAML parser.')
 def enable_plugin(name):
     cli=Path(sys.executable).with_name('hermes.exe' if os.name=='nt' else 'hermes')
     cli=str(cli) if cli.is_file() else shutil.which('hermes')
