@@ -9,7 +9,7 @@ Open **VibeLeak Atlas** in the Hermes Desktop sidebar or command palette.
 5. Inspect the evidence and preview a fix-plan draft. Appending it does not submit it or change code. Confirm the intended repository and approve any subsequent changes in chat.
 6. After an approved change and deployment, **Review rescan** requests a new confirmation. A comparison reports observations, not independently verified fixes.
 
-Public and account-wide results are never imported. Pausing result reads hides private evidence. If a request is uncertain, reuse **Review same approval** rather than starting a separate replacement scan.
+Public and account-wide results are never imported. Pausing saved-result reads hides private evidence. If a request is uncertain, reuse **Review same approval** rather than starting a separate replacement scan.
 
 If the renderer is missing, use **Reload desktop plugins**. If the workbench backend is not active, the page fails closed; copied files alone do not prove Python activation. Do not restart the gateway without deliberately saving work and arranging it.
 
