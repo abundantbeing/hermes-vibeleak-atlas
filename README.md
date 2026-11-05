@@ -145,6 +145,14 @@ Changing the folder, profile, connection or applicable consent invalidates pendi
 
 Read the full [privacy policy](docs/privacy.md) and [API compatibility notes](docs/api-compatibility.md).
 
+### Behavior disclosure
+
+- **Network:** VibeLeak's API, only for website assessments you approve. Cloudflare DNS over HTTPS, only for the hosting-country lookup after separate consent. The country database is bundled and used offline.
+- **Local files:** Atlas reads only the folder you select, and only after you approve inspection. Protected and excluded files are not opened. While a folder is selected and the window is visible, Atlas checks about every four seconds that the folder grant still exists. That check lists granted folders; it does not open files.
+- **Credentials:** the VibeLeak owner key is saved through Hermes's secret store, and the backend reads it there. The renderer never receives it.
+- **Commands:** the installer runs `hermes plugins enable vibeleak-atlas --no-allow-tool-override` through Hermes's CLI. Atlas itself runs no shell commands.
+- **Telemetry and analytics:** none. Atlas sends nothing beyond the requests described above.
+
 ## Scope and limitations
 
 Atlas is a review tool, not a complete security audit or a guarantee that a site is safe.
