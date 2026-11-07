@@ -1,6 +1,6 @@
 # After installation
 
-The desktop page starts off after installation. Turn on **VibeLeak Atlas** in **Settings ▸ Plugins**, then open it in the Hermes Desktop sidebar or command palette.
+The desktop page starts off after installation. Turn it on in **Capabilities ▸ Plugins**: search for **VibeLeak Atlas**, open its card, and switch on **Desktop: VibeLeak Atlas**. The sidebar entry then appears, and you can open it from the sidebar or command palette.
 
 1. Create an owner API key with `scan:write`, `scan:read` and `findings:read`.
 2. Open **Settings ▸ Plugins ▸ VibeLeak Atlas** and paste the key into the **VibeLeak owner API key** field. Hermes stores it in its secret store. Do not paste it into chat or the renderer.

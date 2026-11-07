@@ -10,7 +10,7 @@ VibeLeak Atlas brings authorized website assessments and read-only local code in
 
 [VibeLeak](https://vibeleak.app) · [Walkthrough](#see-it-in-use) · [Installation](#installation) · [Privacy](#privacy-and-data-handling) · [Support](#support)
 
-> **Preview 0.2.0.** Not yet listed in the Hermes plugin catalog. Website assessments require a scoped VibeLeak owner API key, which is listed under the Pro plan. Local folder inspection does not require a VibeLeak account.
+> **Preview 0.2.1.** Not yet listed in the Hermes plugin catalog. Website assessments require a scoped VibeLeak owner API key, which is listed under the Pro plan. Local folder inspection does not require a VibeLeak account.
 
 ## See it in use
 
@@ -70,17 +70,30 @@ Native acceptance has been exercised on Windows Desktop. Other operating systems
 
 ## Installation
 
-### Package or source checkout
+Requires Hermes Agent and Hermes Desktop **0.22.6 or later**. Tested on Windows with Hermes 0.23.0.
 
-Use an extracted **0.2.0** package or source checkout of that version. From its root, run this with Hermes's Python interpreter:
+### From Git (recommended)
+
+Run these in a terminal:
+
+```sh
+hermes plugins install https://github.com/abundantbeing/vibeleak-atlas
+hermes plugins enable vibeleak-atlas --no-allow-tool-override
+```
+
+Hermes labels this a custom source outside the Hermes catalog. That notice is expected. The install copies the agent backend and the Desktop renderer. The enable step turns on the agent side. Neither step restarts the gateway.
+
+Then turn on the Desktop page. In Hermes Desktop, open **Capabilities ▸ Plugins**, search for **VibeLeak Atlas**, open its card, and switch on **Desktop: VibeLeak Atlas**. The **VibeLeak Atlas** entry then appears in the sidebar and command palette. If it does not appear, run **Reload desktop plugins** from the command palette.
+
+### From a release package or source checkout
+
+Use an extracted **0.2.1** package or source checkout of that version. From its root, run this with Hermes's Python interpreter:
 
 ```sh
 python scripts/install_local.py
 ```
 
-Here, `python` must resolve to the interpreter from your Hermes installation. The installer copies the agent backend and desktop renderer, asks Hermes to enable the plugin, and backs up existing configuration. It does not restart the gateway.
-
-The desktop page starts off after installation. Turn on **VibeLeak Atlas** in **Settings ▸ Plugins**, then open it from the sidebar or command palette. If it does not appear, run **Reload desktop plugins** from the command palette.
+Here, `python` must resolve to the interpreter from your Hermes installation. The installer copies the agent backend and desktop renderer, asks Hermes to enable the agent side, and backs up existing configuration. It does not restart the gateway. Then turn on the Desktop page as described above.
 
 ### Upgrade
 
@@ -210,7 +223,7 @@ Read [architecture](docs/architecture.md) for the component boundaries and [veri
 
 | Symptom | What to check |
 | --- | --- |
-| Atlas is missing from the sidebar | Confirm it is installed and enabled, then run **Reload desktop plugins**. |
+| Atlas is missing from the sidebar | Confirm the agent side is enabled and **Desktop: VibeLeak Atlas** is on in **Capabilities ▸ Plugins**, then run **Reload desktop plugins**. |
 | The owner backend is inactive | Check that the current connection has the matching backend enabled. Reloading JavaScript alone does not reload Python. |
 | Folder access is unavailable | Use a local Desktop connection with the native folder API and its picker. Do not bypass protected files with another reader. |
 | The website key is refused | Check scopes, API entitlement, the active backend profile and secure key setup. |
