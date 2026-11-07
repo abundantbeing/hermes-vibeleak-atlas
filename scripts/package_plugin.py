@@ -14,7 +14,7 @@ assert all(p.is_file() for p in files),'A required package document or entry poi
 for p in files:
     rel=str(p.relative_to(ROOT)).replace('\\','/')
     assert not any(t in rel for t in ('.env','sqlite','native-qa','paths.json'))
-package=OUT/'vibeleak-atlas-0.2.0.zip'
+package=OUT/'vibeleak-atlas-0.2.1.zip'
 with zipfile.ZipFile(package,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as z:
     for p in sorted(set(files)):z.write(p,'vibeleak-atlas/'+str(p.relative_to(ROOT)).replace('\\','/'))
 with zipfile.ZipFile(package) as z:

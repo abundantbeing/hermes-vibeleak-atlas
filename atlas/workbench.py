@@ -41,7 +41,7 @@ class WorkbenchService(AtlasService):
         key = self._credential()
         connected, epoch = self.receipts.connection_state()
         owner = self.receipts.binding(key)
-        return {'ownerKeySettings': 'Settings ▸ Plugins ▸ VibeLeak Atlas', 'version': '0.2.0', 'backendBuild': BACKEND_BUILD, 'workbenchProtocol': 1, 'privacyScope': 'locally-initiated-scans-only',
+        return {'ownerKeySettings': 'Settings ▸ Plugins ▸ VibeLeak Atlas', 'version': '0.2.1', 'backendBuild': BACKEND_BUILD, 'workbenchProtocol': 1, 'privacyScope': 'locally-initiated-scans-only',
                 'localScanProvenanceAvailable': True, 'privateConfigured': bool(key),
                 'privateVersion': owner[:16] if owner else None, 'connectionEpoch': epoch,
                 'connected': connected, 'apiOrigin': ORIGIN, 'maxUnits': 1,

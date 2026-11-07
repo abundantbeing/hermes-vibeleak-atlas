@@ -3,6 +3,6 @@
   "label": "VibeLeak Atlas",
   "description": "Owner-approved assessments, private evidence, fix-plan drafts and rescan comparison.",
   "icon": "Shield",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "api": "workbench_api.py"
 }

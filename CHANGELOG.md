@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.1 - Preview
+
+- **Install from Git:** `hermes plugins install https://github.com/abundantbeing/vibeleak-atlas`, then `hermes plugins enable vibeleak-atlas --no-allow-tool-override`. No ZIP or checkout needed.
+- **Corrected Desktop steps:** the Desktop page is turned on in Capabilities ▸ Plugins with the **Desktop: VibeLeak Atlas** switch. The earlier instructions pointed to Settings ▸ Plugins, which only holds the optional owner key.
+- **Interface version:** the header and status now show 0.2.1.
+
+Requires Hermes Agent and Hermes Desktop 0.22.6 or later. Tested with Hermes 0.23.0 on Windows.
+
 ## 0.2.0 - Preview
 
 First preview of VibeLeak Atlas for Hermes Desktop.
